@@ -67,7 +67,7 @@ class LungDataset(Dataset):
         return labels
 
     """
-    Returns labels dictionary for a particular image
+    Returns labels dictionary for a particular image (Changes from original code)
     ------------
     FORMAT: {file_path: [{label0: first_col}, {"label1": second_col}, {"label2": third_col}, {"label3": forth_col}...]}
     """
@@ -78,9 +78,9 @@ class LungDataset(Dataset):
             line += 1
             label_dict = {}
             try:
-                img_file = col[-1]
-                for i in range(0, len(col) - 1):
-                    label_dict['label' + str(i + 1)] = col[i]
+                img_file = col[0]
+                for i in range(1, len(col)):
+                    label_dict['label' + str(i)] = col[i]
             except ValueError:
                 raise_from(ValueError(
                     'line {}: format should be \'label1,label2,label3,label4, img_file\' or \',,,,img_file\''.format(
