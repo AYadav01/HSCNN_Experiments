@@ -5,7 +5,6 @@ import sys
 import csv
 
 class LungDataset(Dataset):
-
     """CSV dataset"""
     def __init__(self, train_file, num_tasks=3, transform=None):
         """
@@ -57,19 +56,13 @@ class LungDataset(Dataset):
 
     """Loads labels for given images from the dictionary created by '_read_labels()' function"""
     def load_labels(self, image_index):
-        # get num of labels
-        num_labels = self.num_tasks + 1  # 4
-        # print("num_labels:", num_labels)
-        # Gives a list of dictionary with keys as 'label1' and values as value for that label (0)
-        label_list = self.image_data[self.image_names[image_index]]
-        # print("label list for {} is {}".format(self.image_names[image_index], label_list))
+        num_labels = self.num_tasks + 1
+        label_list = self.image_data[self.image_names[image_index]]s
         labels = np.zeros((0, num_labels))
-        # parse labels
         for idx, a in enumerate(label_list):
             label = np.zeros((1, num_labels))
             for i in range(num_labels):
                 label[0, i] = a['label' + str(i + 1)]
-
             labels = np.append(labels, label, axis=0)
         return labels
 
@@ -85,16 +78,13 @@ class LungDataset(Dataset):
             line += 1
             label_dict = {}
             try:
-                img_file = col[0]
-                # print("label4", img_file) # gets the last label: malignancy score
-                for i in range(1, len(col)):
-                    label_dict['label' + str(i)] = col[i]
-                # print(label_dict)
+                img_file = col[-1]
+                for i in range(0, len(col) - 1):
+                    label_dict['label' + str(i + 1)] = col[i]
             except ValueError:
                 raise_from(ValueError(
                     'line {}: format should be \'label1,label2,label3,label4, img_file\' or \',,,,img_file\''.format(
                         line)), None)
-            # If label is not in dictionary, create a key with empty list as dict values
             if img_file not in result:
                 result[img_file] = []
             result[img_file].append(label_dict)
