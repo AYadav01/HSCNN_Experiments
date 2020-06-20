@@ -67,7 +67,7 @@ class LungDataset(Dataset):
         return labels
 
     """
-    Returns labels dictionaryfor a particular image (CHANGES FROM ORIGINAL CODE)
+    Returns labels dictionary for a particular image
     ------------
     FORMAT: {file_path: [{label0: first_col}, {"label1": second_col}, {"label2": third_col}, {"label3": forth_col}...]}
     """
