@@ -5,7 +5,7 @@ import torch
 def class_weight(train_path, num_tasks=3):
     df = pd.read_csv(train_path, header=None)
     label_list = []
-    for i in range(num_tasks + 1):
+    for i in range(1, num_tasks + 2):
         label_list.append(df.iloc[:, i].tolist())
     class_weight_dict = {}
     for i in range(len(label_list)):
