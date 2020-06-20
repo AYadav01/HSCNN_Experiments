@@ -57,7 +57,7 @@ class LungDataset(Dataset):
     """Loads labels for given images from the dictionary created by '_read_labels()' function"""
     def load_labels(self, image_index):
         num_labels = self.num_tasks + 1
-        label_list = self.image_data[self.image_names[image_index]]s
+        label_list = self.image_data[self.image_names[image_index]]
         labels = np.zeros((0, num_labels))
         for idx, a in enumerate(label_list):
             label = np.zeros((1, num_labels))
